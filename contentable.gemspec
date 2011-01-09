@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{contentable}
-  s.version = "0.1.0"
+  s.version = "0.2.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["metasoarous"]
-  s.date = %q{2010-10-17}
-  s.description = %q{Gives modules and helpers for creating content items with textile formatting}
+  s.date = %q{2011-01-02}
+  s.description = %q{Contentable allows rails developers to place chunks of content in "content_items" whcih store content text, titles and descriptions in order to make content more easily updateable.}
   s.email = %q{metasoarous@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -20,21 +20,41 @@ Gem::Specification.new do |s|
     ".document",
      ".gitignore",
      "LICENSE",
+     "README.textile",
      "Rakefile",
      "VERSION",
-     "lib/contentable.rb",
-     "spec/contentable_spec.rb",
-     "spec/spec.opts",
-     "spec/spec_helper.rb"
+     "contentable.gemspec",
+     "lib/contentable.rb"
   ]
   s.homepage = %q{http://github.com/metasoarous/contentable}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{Makes dynamic content integration into your rails app a snap}
+  s.summary = %q{Rails gem for creating and managing content_item models}
   s.test_files = [
-    "spec/contentable_spec.rb",
-     "spec/spec_helper.rb"
+    "spec/rails3/app_root/app/controllers/application_controller.rb",
+     "spec/rails3/app_root/app/controllers/content_items_controller.rb",
+     "spec/rails3/app_root/app/helpers/application_helper.rb",
+     "spec/rails3/app_root/app/helpers/content_items_helper.rb",
+     "spec/rails3/app_root/app/models/content_item.rb",
+     "spec/rails3/app_root/config/application.rb",
+     "spec/rails3/app_root/config/boot.rb",
+     "spec/rails3/app_root/config/environment.rb",
+     "spec/rails3/app_root/config/environments/development.rb",
+     "spec/rails3/app_root/config/environments/in_memory.rb",
+     "spec/rails3/app_root/config/environments/production.rb",
+     "spec/rails3/app_root/config/environments/test.rb",
+     "spec/rails3/app_root/config/initializers/backtrace_silencers.rb",
+     "spec/rails3/app_root/config/initializers/inflections.rb",
+     "spec/rails3/app_root/config/initializers/mime_types.rb",
+     "spec/rails3/app_root/config/initializers/secret_token.rb",
+     "spec/rails3/app_root/config/initializers/session_store.rb",
+     "spec/rails3/app_root/config/routes.rb",
+     "spec/rails3/app_root/db/migrate/20110102070953_create_content_items.rb",
+     "spec/rails3/app_root/db/schema.rb",
+     "spec/rails3/app_root/db/seeds.rb",
+     "spec/rails3/contentable_spec.rb",
+     "spec/rails3/spec_helper.rb"
   ]
 
   if s.respond_to? :specification_version then
@@ -43,17 +63,14 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<RedCloth>, [">= 0"])
-      s.add_runtime_dependency(%q<rails>, [">= 3.0.0"])
-      s.add_development_dependency(%q<rspec>, [">= 2.0.0"])
+      s.add_development_dependency(%q<rspec>, [">= 1.2.9"])
     else
       s.add_dependency(%q<RedCloth>, [">= 0"])
-      s.add_dependency(%q<rails>, [">= 3.0.0"])
-      s.add_dependency(%q<rspec>, [">= 2.0.0"])
+      s.add_dependency(%q<rspec>, [">= 1.2.9"])
     end
   else
     s.add_dependency(%q<RedCloth>, [">= 0"])
-    s.add_dependency(%q<rails>, [">= 3.0.0"])
-    s.add_dependency(%q<rspec>, [">= 2.0.0"])
+    s.add_dependency(%q<rspec>, [">= 1.2.9"])
   end
 end
 

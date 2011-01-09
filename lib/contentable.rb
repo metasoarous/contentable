@@ -1,4 +1,24 @@
+require "redcloth"
+
 module Contentable
+	
+	class Railtie < Rails::Railtie
+		config.to_prepare do
+			ActiveRecord::Base.send :extend, Contentable::Hook
+		end
+		initializer "contentable.initialize" do |app|
+
+		end
+	end
+	
+	# Extends ActiveRecord::Base in order to grant it's decendents
+	# the acts_as_hook
+	module Hook
+		def acts_as_contentable
+			self.send :include, Model
+			ActiveRecord::Migration.send :include, MigrationHelper
+		end
+	end
 	
 	# Gets auto included in your ApplicationHelper when you include the
 	# Model module in the model class
@@ -64,5 +84,31 @@ module Contentable
 			end
 		end
 	end
+	
+	# This module gives us some migration helpers that let us easily
+	# create the fields necessary for content items. We are switching
+	# this so that title can contain title information to show up in
+	# the resulting document title, while path is where you go to get
+	# there.
+	#
+	# This doesn't work yet - might want to consider scrapping it for
+	# now, but it would be good to have later. When we do that, we should
+	# make it model name agnostic...
+	# module MigrationHelper
+	# 	def create_content_items
+	# 		create_table :content_items do |t|
+	# 			t.string :name
+	# 			t.string :title
+	# 			t.string :description
+	# 			t.text :text
+	# 			
+	# 			t.timestamps
+	# 		end
+	# 	end
+	# 	
+	# 	def drop_content_items
+	# 		drop_table :content_items
+	# 	end
+	# end
 	
 end

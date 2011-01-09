@@ -12,7 +12,7 @@ h2. TODO
 
 * Make it so that a missing title brings up content not yet created content_item which is auto generated
 * Create validations/protections on changing the content_item title name
-* Create generators for view code
+* Create generators for view code, (migrations, etc?)
 * ContentItem manager
 * Support other markup languages
 * Make it so that the class you include contentable in can be named whatever your want
