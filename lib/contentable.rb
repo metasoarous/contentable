@@ -16,7 +16,7 @@ module Contentable
 	module Hook
 		def acts_as_contentable
 			self.send :include, Model
-			ActiveRecord::Migration.send :include, MigrationHelper
+			ActiveRecord::Migration.extend MigrationHelper
 		end
 	end
 	
@@ -48,13 +48,16 @@ module Contentable
 			ActionView::Base.send :include, Helpers
 		end
 		module ClassMethods
-			def safe_find_by_title(title)
-				found_by_title = find_by_title(title)
-				if found_by_title
-					return found_by_title
+			def safe_find_by_name(name)
+				found_by_name = find_by_title(name)
+				if found_by_name
+					return found_by_name
 				else
-					content_missing = find_or_create_by_title(:title => "content_missing", :text => "This content has yet to be created.")
-					content_missing.missing = title
+					content_missing = find_or_create_by_name(:name => "content_missing", :title => "Content Missing", :description => "This is the display page returned when there is no content found that matches a particular name.", :text => "This content has yet to be created.")
+					# This lets the content_missing content item know what 
+					# name was requested so that one can ask it for the 
+					# name and create a new content item with that name.
+					content_missing.missing = name
 					return content_missing
 				end
 			end
@@ -76,11 +79,11 @@ module Contentable
 		def find_content_item
 			if params[:id]
 				@content_item = ContentItem.find(params[:id])
-			elsif params[:title]
-				@content_item = ContentItem.safe_find_by_title(params[:title])
+			elsif params[:name]
+				@content_item = ContentItem.safe_find_by_name(params[:name])
 				@missing = @content_item.missing
 			else
-				@content_item = ContentItem.safe_find_by_title("content_missing")
+				@content_item = ContentItem.safe_find_by_name("content_missing")
 			end
 		end
 	end
@@ -94,21 +97,21 @@ module Contentable
 	# This doesn't work yet - might want to consider scrapping it for
 	# now, but it would be good to have later. When we do that, we should
 	# make it model name agnostic...
-	# module MigrationHelper
-	# 	def create_content_items
-	# 		create_table :content_items do |t|
-	# 			t.string :name
-	# 			t.string :title
-	# 			t.string :description
-	# 			t.text :text
-	# 			
-	# 			t.timestamps
-	# 		end
-	# 	end
-	# 	
-	# 	def drop_content_items
-	# 		drop_table :content_items
-	# 	end
-	# end
+	module MigrationHelper
+		def create_content_items
+			create_table :content_items do |t|
+				t.string :name
+				t.string :title
+				t.string :description
+				t.text :text
+				
+				t.timestamps
+			end
+		end
+		
+		def drop_content_items
+			drop_table :content_items
+		end
+	end
 	
 end

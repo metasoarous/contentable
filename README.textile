@@ -1,29 +1,35 @@
 h1. Contentable
 
-Contentable is a gem for easing the process of dynamic content. It's all too easy to find situations in which there is content which needs to be inserted here in there in some web application, but which should be updatable on the fly. You could go with a content management system, but you really don't need that much power on that side and need more customization or want everything to be based in rails. This gem addresses this need.
-
-Contentable works by letting you create a ContentItem (by default) model which encapsulates the content in textile format and has little helpers for rendering it. 
+Contentable is a gem for easing the integration of chunks of dynamic content. For situations in which content which needs to be inserted here in there in some web application, but which should be updatable on the fly, you could go with a content management system, but if you also need other models and the rest of the power of rails, that isn't the best solution. This gem addresses this issue by allowing you to create content_items which house content (using textile) and give you easy display (etc) access to this content, either as full page content or as a simple block of content to be embedded within some other dynamic page. 
 
 h2. How to use
 
-At the moment this is still a work in progress. Check back later.
+The basics of use of this gem are as follows.
+
+# First, include the gem in your Gemfile
+# Next scaffold out a content_item model with fields @name:string title:string description:string text:text@. Alternatively (preferably really) there is a migration helper which goes along the lines of @create_content_items@ that does this for you; just include that method call within @def self.up@.
+# Put the line @acts_as_contentable@ in your @ContentItem@ model
+# Use @display_content(content_item)@ in your views (or @display_textile(some_textile_text)@)
+# Include @Contentable::Controller@ in your @ContentItemController@ to gain access to the @find_content_item@ controller method which first looks to see if @params[:id]@ is defined and then looks to see if @params[name]@ is defined. The the first isn't but the latter is, the action will grab the content item based on the name passed through. Now you can set up routes that easily take advantage of this so that your content item @name@ attributes can behave like parts of a path.
+# You can also call @ContentItem#safe_find_by_name(name)@ directly (the method able is just a wrapper of this). If that name queried for is not found, the method returns a (either new or old, depending on whether the situation has ever happened before) content item named @content_missing@. This content item will be given a @missing@ attribute (in local memory, not in db) which stores the name of the missing content item. This name can then be used for easier creation of content that should exist but does not yet.
 
 h2. TODO
 
-* Make it so that a missing title brings up content not yet created content_item which is auto generated
-* Create validations/protections on changing the content_item title name
+* Make it so that the class you include contentable in can be named whatever your want (BIG ONE)
+* Make helpers for using javascript to automatically render the textile as you type it. 
+* Put in validations on @name@ of content items so that they can always be used as paths?
+* Create validations/protections on changing the content_item @name@
 * Create generators for view code, (migrations, etc?)
-* ContentItem manager
+* ContentItem manager (a sort of default content item index which allows an admin to manage content items)
 * Support other markup languages
-* Make it so that the class you include contentable in can be named whatever your want
 * Integrate the textile helper
 * Routing helpers
 
 h2. Note on Patches/Pull Requests
- 
+
 * Fork the project.
 * Make your feature addition or bug fix.
-* Add tests for it. This is important so I don't break it in a
+* Add specs for it. This is important so I don't break it in a
   future version unintentionally.
 * Commit, do not mess with rakefile, version, or history.
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)

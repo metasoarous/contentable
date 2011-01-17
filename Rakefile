@@ -5,8 +5,8 @@ begin
 	require 'jeweler'
 	Jeweler::Tasks.new do |gem|
 		gem.name = "contentable"
-		gem.summary = %Q{Rails gem for creating and managing content_item models}
-		gem.description = %Q{Contentable allows rails developers to place chunks of content in "content_items" whcih store content text, titles and descriptions in order to make content more easily updateable.}
+		gem.summary = %Q{Rails 3 gem for streamlining the management of chunks of html (textile) content within an application}
+		gem.description = %Q{Contentable allows rails developers to place chunks of content in "content_items" whcih store content text, titles and descriptions in order to make content more easily updateable manageable.}
 		gem.email = "metasoarous@gmail.com"
 		gem.homepage = "http://github.com/metasoarous/contentable"
 		gem.authors = ["metasoarous"]
