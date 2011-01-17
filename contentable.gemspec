@@ -23,8 +23,6 @@ Gem::Specification.new do |s|
      "README.textile",
      "Rakefile",
      "VERSION",
-     "contentable-0.2.1.gem",
-     "contentable-0.2.2.gem",
      "contentable.gemspec",
      "lib/contentable.rb",
      "lib/version.rb",
