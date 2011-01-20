@@ -24,7 +24,7 @@ module Contentable
 	# Model module in the model class
 	module Helpers
 		def display_textile(text)
-			RedCloth.new(text).to_html
+			RedCloth.new(text).to_html.html_safe
 		end
 		def display_content(content_item, edit = false)
 			html = display_textile(content_item.text)
@@ -85,6 +85,7 @@ module Contentable
 			else
 				@content_item = ContentItem.safe_find_by_name("content_missing")
 			end
+			return @content_item
 		end
 	end
 	

@@ -29,3 +29,32 @@ A paragraph
 		end
 	end
 end
+
+describe ContentItemsController do
+	before :all do
+		@content = Factory :content_item, :name => "some_content"
+	end
+	
+	describe "find_content_item method" do
+		it "should assign a content item to @content_item implicitly" do
+			get "content/some_content"
+			assigns[:content_item].should.be_a_kind_of ContentItem
+		end
+		it "should assign the correct content item to @content_item" do
+			get "content/some_content"
+			assigns[:content_item].should == @content
+		end
+		it "should assign a content item to @content_item explicitly" do
+			
+		end
+	end
+end
+
+
+# Things to spec:
+# 
+# Make sure that the find_content_item method doesn't return a string
+# This is sure to be confusing to people
+#
+# Spec out the way it is written to respond here though (that is, by
+# assigning directly to the attribute within the method)

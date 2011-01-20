@@ -13,7 +13,16 @@ class ContentItemsController < ApplicationController
   # GET /content_items/1
   # GET /content_items/1.xml
   def show
-    @content_item = ContentItem.find(params[:id])
+    find_content_item
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @content_item }
+    end
+  end
+
+  def show_with_direct_attribute_assign
+    @content_item = find_content_item
 
     respond_to do |format|
       format.html # show.html.erb
@@ -34,7 +43,7 @@ class ContentItemsController < ApplicationController
 
   # GET /content_items/1/edit
   def edit
-    @content_item = ContentItem.find(params[:id])
+    find_content_item
   end
 
   # POST /content_items
