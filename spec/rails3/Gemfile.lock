@@ -1,13 +1,13 @@
 PATH
-  remote: /Users/cts/code/contentable
+  remote: ../..
   specs:
-    contentable (0.2.4)
+    contentable (0.3.1)
       RedCloth
 
 GEM
   remote: http://rubygems.org/
   specs:
-    RedCloth (4.2.3)
+    RedCloth (4.2.6)
     abstract (1.0.0)
     actionmailer (3.0.2)
       actionpack (= 3.0.2)

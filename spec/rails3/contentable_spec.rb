@@ -58,3 +58,5 @@ end
 #
 # Spec out the way it is written to respond here though (that is, by
 # assigning directly to the attribute within the method)
+#
+# Make sure that the find_by .. methods are working properly

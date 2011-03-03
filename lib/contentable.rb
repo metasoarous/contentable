@@ -1,4 +1,3 @@
-require "redcloth"
 
 module Contentable
 	
@@ -7,7 +6,6 @@ module Contentable
 			ActiveRecord::Base.send :extend, Contentable::Hook
 		end
 		initializer "contentable.initialize" do |app|
-
 		end
 	end
 	
@@ -34,6 +32,7 @@ module Contentable
 			end
 			return html
 		end
+		# Musts inserts edit_missing_content_link method
 	end
 	
 	# Once included in your model (which at least as of now should be named
@@ -43,13 +42,14 @@ module Contentable
 	module Model
 		def self.included(model)
 			model.extend ClassMethods
+			# Should we change missing to missing_name? seems like that makes sense
 			model.send :attr_accessor, :missing
-			model.validates_uniqueness_of :title
+			model.validates_uniqueness_of :name
 			ActionView::Base.send :include, Helpers
 		end
 		module ClassMethods
 			def safe_find_by_name(name)
-				found_by_name = find_by_title(name)
+				found_by_name = find_by_name(name)
 				if found_by_name
 					return found_by_name
 				else
