@@ -15,6 +15,8 @@ The basics of use of this gem are as follows.
 
 h2. TODO
 
+* Either add validation for requiring content item text to not be blank or have the display_content helper method gracefully handle situations in which ContentItem#text is nill.
+
 * Make it so that the class you include contentable in can be named whatever your want (BIG ONE)
 * Make helpers for using javascript to automatically render the textile as you type it. 
 * Put in validations on @name@ of content items so that they can always be used as paths?

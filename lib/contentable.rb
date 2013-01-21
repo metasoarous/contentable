@@ -1,6 +1,7 @@
 
 module Contentable
 	
+	# Loads our code functionality into rails
 	class Railtie < Rails::Railtie
 		config.to_prepare do
 			ActiveRecord::Base.send :extend, Contentable::Hook
@@ -10,7 +11,7 @@ module Contentable
 	end
 	
 	# Extends ActiveRecord::Base in order to grant it's decendents
-	# the acts_as_hook
+	# the acts_as_ hook
 	module Hook
 		def acts_as_contentable
 			self.send :include, Model
